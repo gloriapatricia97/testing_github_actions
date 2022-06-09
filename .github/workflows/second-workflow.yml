@@ -15,10 +15,13 @@ jobs:
           python-version: '3.9'
       - name: Install dependencies
         run: |
-          pip install nose pylint
-      - name: Pylint tests
+          python -m pip install --upgrade pip
+          pip install pipenv
+          pipenv --python 3.9
+          pipenv install nose pylint --dev
+      - name: Lint with pylint
         run: |
-          python -m python pylint .
-      - name: Nosetests
+          pipenv run pylint app
+      - name: Test with nose
         run: |
-          nosetests
+          pipenv run nosetests
